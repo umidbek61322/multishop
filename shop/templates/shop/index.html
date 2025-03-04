@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
+
 {% block title %}
 {{title}}
 {% endblock title %}
-    <!-- Carousel Start -->
 
-    <!-- Carousel End -->
-
-
-    <!-- Featured Start -->
-
-    <!-- Featured End -->
+{% block main %}
+{% include 'shop/components/carousel.html' %}
+{% include 'shop/components/feature.html' %}
+{% include 'shop/components/category.html' %}
+{% endblock main %}
 
 
     <!-- Categories Start -->
