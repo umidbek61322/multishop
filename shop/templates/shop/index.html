@@ -3,6 +3,11 @@
 {{title}}
 {% endblock title %}
     <!-- Carousel Start -->
+    {% block main %}
+        {% include 'shop/components/carousel.html' %}
+        {% include 'shop/components/feature.html' %}
+        {% include 'shop/components/category.html' %}
+    {% endblock main %}
 
     <!-- Carousel End -->
 
