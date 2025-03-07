@@ -52,6 +52,12 @@ class Category(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(upload_to="images/", blank=True, null=True)
 
+    def get_photo(self):
+        try:
+            return self.image.url
+        except:
+            return "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg"
+
     def __str__(self):
         return self.title
     
@@ -83,3 +89,34 @@ class Offer(models.Model):
     class Meta:
         verbose_name = "Offer"
         verbose_name_plural = "Offers"
+
+class Product(models.Model):
+    SIZE_CHOICES = [
+        ("XS","EXTRA SMALL"),
+        ("S","SMALL"),
+        ("M","MEDIUM"),
+        ("L","LARGE"),
+        ("XL","EXTRA LARGE"),
+    ]
+    title = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    description = models.TextField(default="The description is not available")
+    size = models.CharField(max_length=2, choices=SIZE_CHOICES, default="M")
+    color = models.CharField(max_length=30, blank=True, null=True)
+    info = models.TextField(default="The information is not available")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    quantity = models.IntegerField(default=10)
+    slug = models.SlugField(unique=True)
+
+    class Meta:
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
+
+class Gallery(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="photos")
+    image = models.ImageField(upload_to="images/")
+
+    class Meta:
+        verbose_name = "Photo"
+        verbose_name_plural = "Photos"

@@ -13,10 +13,12 @@ class Index(ListView):
         categories = Category.objects.all()
         subcategories = SubCategory.objects.all()
         offers = Offer.objects.all()
+        products = Product.objects.all()
         data = {}
         data["categories"] = categories
         data["subcategories"] = subcategories
         data["offers"] = offers
+        data["products"] = products
         context["data"] = data
         return context
 
