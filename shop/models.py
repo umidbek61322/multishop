@@ -100,6 +100,7 @@ class Product(models.Model):
     ]
     title = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    sale = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     description = models.TextField(default="The description is not available")
     size = models.CharField(max_length=2, choices=SIZE_CHOICES, default="M")
     color = models.CharField(max_length=30, blank=True, null=True)
@@ -112,6 +113,14 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Product"
         verbose_name_plural = "Products"
+    def get_first_photo(self):
+        if self.photos:
+            try:
+                return self.photos.first().image.url
+            except:
+                return "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
+        else: 
+            return "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
 
 class Gallery(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="photos")
@@ -120,3 +129,7 @@ class Gallery(models.Model):
     class Meta:
         verbose_name = "Photo"
         verbose_name_plural = "Photos"
+
+class Partner(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to="images/", blank=True, null=True)
