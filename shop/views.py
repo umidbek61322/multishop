@@ -8,7 +8,7 @@ class Index(ListView):
     context_object_name = "subcategories"
     template_name = "shop/index.html"
     extra_context = {
-        "title":"Delete"
+        "title":"Home"
     }
 
     def get_context_data(self, **kwargs):
