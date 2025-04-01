@@ -135,3 +135,10 @@ class Gallery(models.Model):
 class Partner(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(upload_to="images/", blank=True, null=True)
+    
+class Like(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.product.title}"
